@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Tirage Oracle Heka</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #f9f9f9;
+    }
+    img {
+      max-width: 200px;
+      margin: 20px auto;
+      display: block;
+    }
+    .carte {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tirage à une carte – Oracle Heka</h1>
+  <button onclick="tirerCarte()">Tirer une carte</button>
+  <div id="resultat" class="carte"></div>
+
+  <script>
+    const hekaCartes = [
+      {
+        "id": 1,
+        "nom": "Origine",
+        "image": "https://oracletrium.wordpress.com/wp-content/uploads/2025/05/1-origine.png",
+        "endroit": {
+          "personnalité": {
+            "texte": "Une personne rayonnante, créative et profondément inspirée.",
+            "meta": ["ouverture"]
+          }
+        },
+        "inversé": {
+          "personnalité": {
+            "texte": "Une personne en perte de repères.",
+            "meta": ["tension"]
+          }
+        }
+      },
+      {
+        "id": 2,
+        "nom": "Attente",
+        "image": "https://oracletrium.wordpress.com/wp-content/uploads/2025/05/2-attente.png",
+        "endroit": {
+          "personnalité": {
+            "texte": "Une personne posée, qui sait attendre et observer avant d'agir.",
+            "meta": ["seuil"]
+          }
+        },
+        "inversé": {
+          "personnalité": {
+            "texte": "Une personne figée dans l'indécision, incapable d'agir.",
+            "meta": ["tension"]
+          }
+        }
+      }
+    ];
+
+    function tirerCarte() {
+      const alea = Math.floor(Math.random() * hekaCartes.length);
+      const sens = Math.random() < 0.5 ? "endroit" : "inversé";
+      const carte = hekaCartes[alea];
+
+      const texte = carte[sens]["personnalité"]["texte"];
+      const image = carte.image;
+      const nom = carte.nom;
+
+      const html = "<h2>" + nom + " (" + sens + ")</h2>" +
+                   "<img src='" + image + "' alt='" + nom + "'>" +
+                   "<p>" + texte + "</p>";
+
+      document.getElementById("resultat").innerHTML = html;
+    }
+  </script>
+</body>
+</html>
